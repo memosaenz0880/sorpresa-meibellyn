@@ -1,29 +1,267 @@
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Para Meibellyn ❤️</title>
+
 <style>
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#08111e}
-.stage,.slide{position:fixed;inset:0}.slide{opacity:0;transition:opacity .7s}.slide.active{opacity:1}
-.slide img{width:100%;height:100%;object-fit:cover}
-#start{position:fixed;inset:0;z-index:20;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8vh;background:#0002}
-button{border:0;border-radius:999px;padding:15px 27px;font-size:18px;font-weight:700}
-#start button,#yes{background:#ff4f88;color:white;box-shadow:0 8px 30px #0006}
-#proposal{display:none;position:fixed;inset:0;z-index:25;align-items:flex-end;justify-content:center;padding-bottom:11vh;gap:14px}
-#no{background:#222;color:white;position:relative}
-#audio{position:fixed;width:1px;height:1px;left:-10000px;top:-10000px;opacity:0}
-#hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40}
-.heart{position:absolute;top:-8vh;animation:fall 4s linear forwards}@keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0}}
-</style></head><body>
-<div class="stage" id="stage"></div><iframe id="audio" allow="autoplay; encrypted-media" title="audio"></iframe>
-<div id="start"><button>Comenzar mi sorpresa ❤️</button></div>
-<div id="proposal"><button id="yes">Sí ❤️</button><button id="no">No 🥺</button></div><div id="hearts"></div>
+*{box-sizing:border-box}
+html,body{
+  margin:0;width:100%;height:100%;
+  overflow:hidden;background:#000;
+}
+.slide{
+  position:fixed;inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transition:opacity .7s;
+  background:#000;
+}
+.slide.active{opacity:1}
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+#start{
+  position:fixed;inset:0;z-index:20;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding-bottom:8vh;
+  background:#0002;
+}
+button{
+  border:0;
+  border-radius:999px;
+  padding:15px 27px;
+  font-size:18px;
+  font-weight:700;
+}
+#start button,#yes{
+  background:#ff4f88;
+  color:#fff;
+  box-shadow:0 8px 30px #0006;
+}
+#proposal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:25;
+  align-items:flex-end;
+  justify-content:center;
+  padding-bottom:10vh;
+  gap:14px;
+}
+#no{
+  background:#222;
+  color:#fff;
+  position:relative;
+}
+#audio{
+  position:fixed;
+  width:1px;
+  height:1px;
+  left:-10000px;
+  top:-10000px;
+  opacity:0;
+}
+#hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:40;
+}
+.heart{
+  position:absolute;
+  top:-8vh;
+  animation:fall 4s linear forwards;
+}
+#final{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:45;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:30px;
+  color:white;
+  background:#0008;
+}
+#finalBox{
+  background:#0009;
+  border-radius:25px;
+  padding:28px 22px;
+  max-width:90%;
+}
+#final h1{
+  margin:0 0 15px;
+  font-size:30px;
+}
+#final p{
+  margin:0;
+  font-size:20px;
+  line-height:1.5;
+}
+@keyframes fall{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stage"></div>
+
+<iframe
+  id="audio"
+  allow="autoplay; encrypted-media"
+  title="audio">
+</iframe>
+
+<div id="start">
+  <button>Comenzar mi sorpresa ❤️</button>
+</div>
+
+<div id="proposal">
+  <button id="yes">Sí ❤️</button>
+  <button id="no">No 🥺</button>
+</div>
+
+<div id="hearts"></div>
+
+<div id="final">
+  <div id="finalBox">
+    <h1>¡Sabía que dirías que sí! ❤️</h1>
+    <p>
+      Meibellyn, gracias por ser tú y por hacer de mi vida
+      un lugar más bonito.<br><br>
+      Guillermo ❤️
+    </p>
+  </div>
+</div>
+
 <script>
-const files=["slide_1.jpg","slide_2.jpg","slide_3.jpg","slide_4.jpg","slide_5.jpg","slide_6.jpg","slide_7.jpg","slide_8.jpg","slide_9.jpg","slide_10.jpg"];
+
+const files=[
+"slide_1.jpg",
+"slide_2.jpg",
+"slide_3.jpg",
+"slide_4.jpg",
+"slide_5.jpg",
+"slide_6.jpg",
+"slide_7.jpg",
+"slide_8.jpg",
+"slide_9.jpg",
+"slide_10.jpg"
+];
+
 const stage=document.getElementById("stage");
-files.forEach((f,i)=>{let d=document.createElement("div");d.className="slide"+(i===0?" active":"");d.innerHTML='<img src="img/'+f+'" alt="Sorpresa para Meibellyn">';stage.appendChild(d)});
-const slides=[...document.querySelectorAll(".slide")],start=document.getElementById("start"),proposal=document.getElementById("proposal"),audio=document.getElementById("audio");let started=false,timer;
-function show(i){slides.forEach((s,j)=>s.classList.toggle("active",j===i))}
-start.onclick=()=>{if(started)return;started=true;start.style.display="none";audio.src="https://www.youtube.com/embed/7SsmyjVF1Oo?autoplay=1&playsinline=1&controls=0&rel=0&loop=1&playlist=7SsmyjVF1Oo";let i=0;timer=setInterval(()=>{i++;if(i<9)show(i);else{clearInterval(timer);show(8);proposal.style.display="flex"}},5200)};
-document.getElementById("yes").onclick=()=>{proposal.style.display="none";for(let i=0;i<75;i++){let h=document.createElement("span");h.className="heart";h.textContent="❤️";h.style.left=Math.random()*100+"vw";h.style.fontSize=(16+Math.random()*24)+"px";h.style.animationDelay=Math.random()*1.7+"s";document.getElementById("hearts").appendChild(h)}};
-const no=document.getElementById("no");function escapeNo(){no.style.position="fixed";no.style.left=(8+Math.random()*72)+"vw";no.style.top=(25+Math.random()*58)+"vh"}no.addEventListener("mouseenter",escapeNo);no.addEventListener("touchstart",e=>{e.preventDefault();escapeNo()});
-</script></body></html>
+
+files.forEach((f,i)=>{
+  const d=document.createElement("div");
+  d.className="slide"+(i===0?" active":"");
+  d.innerHTML='<img src="img/'+f+'" alt="Sorpresa para Meibellyn">';
+  stage.appendChild(d);
+});
+
+const slides=[...document.querySelectorAll(".slide")];
+const start=document.getElementById("start");
+const proposal=document.getElementById("proposal");
+const audio=document.getElementById("audio");
+const hearts=document.getElementById("hearts");
+const final=document.getElementById("final");
+
+let started=false;
+let timer;
+
+function show(i){
+  slides.forEach((s,j)=>{
+    s.classList.toggle("active",j===i);
+  });
+}
+
+start.onclick=()=>{
+  if(started)return;
+
+  started=true;
+  start.style.display="none";
+
+  audio.src=
+  "https://www.youtube.com/embed/7SsmyjVF1Oo"+
+  "?autoplay=1"+
+  "&start=0"+
+  "&playsinline=1"+
+  "&controls=0"+
+  "&rel=0"+
+  "&loop=1"+
+  "&playlist=7SsmyjVF1Oo";
+
+  let i=0;
+
+  timer=setInterval(()=>{
+    i++;
+
+    if(i<files.length){
+      show(i);
+    }else{
+      clearInterval(timer);
+
+      // La pregunta y los botones aparecen juntos
+      show(files.length-1);
+      proposal.style.display="flex";
+    }
+
+  },5200);
+};
+
+document.getElementById("yes").onclick=()=>{
+
+  proposal.style.display="none";
+
+  for(let i=0;i<80;i++){
+
+    const h=document.createElement("span");
+
+    h.className="heart";
+    h.textContent="❤️";
+
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(16+Math.random()*24)+"px";
+    h.style.animationDelay=Math.random()*1.7+"s";
+
+    hearts.appendChild(h);
+  }
+
+  setTimeout(()=>{
+    final.style.display="flex";
+  },3000);
+};
+
+const no=document.getElementById("no");
+
+function escapeNo(){
+  no.style.position="fixed";
+  no.style.left=(8+Math.random()*72)+"vw";
+  no.style.top=(25+Math.random()*58)+"vh";
+}
+
+no.addEventListener("mouseenter",escapeNo);
+
+no.addEventListener("touchstart",e=>{
+  e.preventDefault();
+  escapeNo();
+});
+
+</script>
+
+</body>
+</html>
