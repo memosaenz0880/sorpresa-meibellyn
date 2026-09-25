@@ -4,264 +4,102 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Para Meibellyn ❤️</title>
-
 <style>
 *{box-sizing:border-box}
-html,body{
-  margin:0;width:100%;height:100%;
-  overflow:hidden;background:#000;
-}
-.slide{
-  position:fixed;inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  transition:opacity .7s;
-  background:#000;
-}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000}
+#intro{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:#000}
+.introCard{position:relative;width:min(100vw,61vh);aspect-ratio:2/3;display:flex;align-items:center;justify-content:center}
+.introCard img{width:100%;height:100%;object-fit:contain;display:block}
+#startBtn{position:absolute;left:12%;width:76%;bottom:14%;height:18%;border:0;background:transparent;border-radius:28px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#stage{position:fixed;inset:0}
+.slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .7s;pointer-events:none;background:#000}
 .slide.active{opacity:1}
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-#start{
-  position:fixed;inset:0;z-index:20;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  padding-bottom:8vh;
-  background:#0002;
-}
-button{
-  border:0;
-  border-radius:999px;
-  padding:15px 27px;
-  font-size:18px;
-  font-weight:700;
-}
-#start button,#yes{
-  background:#ff4f88;
-  color:#fff;
-  box-shadow:0 8px 30px #0006;
-}
-#proposal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:25;
-  align-items:flex-end;
-  justify-content:center;
-  padding-bottom:10vh;
-  gap:14px;
-}
-#no{
-  background:#222;
-  color:#fff;
-  position:relative;
-}
-#audio{
-  position:fixed;
-  width:1px;
-  height:1px;
-  left:-10000px;
-  top:-10000px;
-  opacity:0;
-}
-#hearts{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  overflow:hidden;
-  z-index:40;
-}
-.heart{
-  position:absolute;
-  top:-8vh;
-  animation:fall 4s linear forwards;
-}
-#final{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:45;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:30px;
-  color:white;
-  background:#0008;
-}
-#finalBox{
-  background:#0009;
-  border-radius:25px;
-  padding:28px 22px;
-  max-width:90%;
-}
-#final h1{
-  margin:0 0 15px;
-  font-size:30px;
-}
-#final p{
-  margin:0;
-  font-size:20px;
-  line-height:1.5;
-}
-@keyframes fall{
-  to{
-    transform:translateY(120vh) rotate(360deg);
-    opacity:0;
-  }
-}
+.slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+#audio{display:none}
+#proposal{display:none;position:fixed;inset:0;z-index:30;align-items:center;justify-content:center;pointer-events:none}
+#proposalButtons{position:relative;width:min(88vw,44vh);aspect-ratio:341/386;pointer-events:none}
+#proposalButtons button{position:absolute;bottom:17.2%;height:11.5%;padding:0;font-size:clamp(16px,5vw,22px);pointer-events:auto;border:0;border-radius:999px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#yes{left:5.3%;width:39.5%;background:#ff4f88;color:#fff;box-shadow:0 8px 30px #0006}
+#no{right:6%;width:39%;background:#222;color:#fff;transition:left .35s ease,bottom .35s ease;box-shadow:0 6px 20px #0005}
+#hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:40}
+.heart{position:absolute;top:-8vh;animation:fall 4s linear forwards}
+@keyframes fall{to{transform:translateY(120vh) rotate(360deg);opacity:0}}
+#final{position:fixed;inset:0;z-index:45;display:none;align-items:center;justify-content:center;text-align:center;padding:28px;color:#fff;font-family:Georgia,serif}
+#finalBox{max-width:620px;background:#0008;padding:28px;border-radius:24px;text-shadow:0 2px 8px #000}
+#final h1{font-size:clamp(28px,8vw,48px);margin:0 0 14px}
+#final p{font-size:clamp(18px,5vw,26px);line-height:1.45;margin:0}
 </style>
 </head>
-
 <body>
-
+<div id="intro"><div class="introCard"><img src="img/intro_girasol_corazon.png" alt="Toca aquí para comenzar tu sorpresa"><button id="startBtn" aria-label="Toca aquí para comenzar tu sorpresa"></button></div></div>
 <div id="stage"></div>
-
-<iframe
-  id="audio"
-  allow="autoplay; encrypted-media"
-  title="audio">
-</iframe>
-
-<div id="start">
-  <button>Comenzar mi sorpresa ❤️</button>
-</div>
-
-<div id="proposal">
-  <button id="yes">Sí ❤️</button>
-  <button id="no">No 🥺</button>
-</div>
-
+<audio id="audio" preload="auto" playsinline src="audio/ya_borracho.mp3"></audio>
+<div id="proposal"><div id="proposalButtons"><button id="yes">Sí ❤️</button><button id="no">No 🥺</button></div></div>
 <div id="hearts"></div>
-
-<div id="final">
-  <div id="finalBox">
-    <h1>¡Sabía que dirías que sí! ❤️</h1>
-    <p>
-      Meibellyn, gracias por ser tú y por hacer de mi vida
-      un lugar más bonito.<br><br>
-      Guillermo ❤️
-    </p>
-  </div>
-</div>
-
+<div id="final"><div id="finalBox"><h1>¡Sabía que dirías que sí! ❤️</h1><p>Meibellyn, gracias por ser tú y por hacer de mi vida un lugar más bonito.<br><br>Guillermo ❤️</p></div></div>
 <script>
-
-const files=[
-"slide_1.jpg",
-"slide_2.jpg",
-"slide_3.jpg",
-"slide_4.jpg",
-"slide_5.jpg",
-"slide_6.jpg",
-"slide_7.jpg",
-"slide_8.jpg",
-"slide_9.jpg",
-"slide_10.jpg"
-];
-
+const files=["slide_1.jpg","slide_2.jpg","slide_3.jpg","slide_4.jpg","slide_5.jpg","slide_6.jpg","slide_7.jpg","slide_8.jpg"];
 const stage=document.getElementById("stage");
-
-files.forEach((f,i)=>{
-  const d=document.createElement("div");
-  d.className="slide"+(i===0?" active":"");
-  d.innerHTML='<img src="img/'+f+'" alt="Sorpresa para Meibellyn">';
-  stage.appendChild(d);
-});
-
+files.forEach((f,i)=>{const d=document.createElement("div");d.className="slide"+(i===0?" active":"");d.innerHTML='<img src="img/'+f+'" alt="Sorpresa para Meibellyn">';stage.appendChild(d)});
 const slides=[...document.querySelectorAll(".slide")];
-const start=document.getElementById("start");
+const intro=document.getElementById("intro");
+const startBtn=document.getElementById("startBtn");
 const proposal=document.getElementById("proposal");
 const audio=document.getElementById("audio");
 const hearts=document.getElementById("hearts");
 const final=document.getElementById("final");
-
-let started=false;
-let timer;
-
-function show(i){
-  slides.forEach((s,j)=>{
-    s.classList.toggle("active",j===i);
-  });
+const no=document.getElementById("no");
+let started=false,timer,noTimer;
+function show(i){slides.forEach((s,j)=>s.classList.toggle("active",j===i));}
+function moveNo(){
+  const spots=[
+    {left:'52%',bottom:'17%'},{left:'8%',bottom:'27%'},{left:'48%',bottom:'34%'},
+    {left:'18%',bottom:'48%'},{left:'54%',bottom:'55%'},{left:'5%',bottom:'63%'}
+  ];
+  const current=no.dataset.spot||'-1';
+  let n=Math.floor(Math.random()*spots.length);
+  while(String(n)===current) n=Math.floor(Math.random()*spots.length);
+  no.dataset.spot=n;
+  no.style.left=spots[n].left;
+  no.style.right='auto';
+  no.style.bottom=spots[n].bottom;
 }
-
-start.onclick=()=>{
+startBtn.onclick=async()=>{
   if(started)return;
-
   started=true;
-  start.style.display="none";
-
-  audio.src=
-  "https://www.youtube.com/embed/7SsmyjVF1Oo"+
-  "?autoplay=1"+
-  "&start=0"+
-  "&playsinline=1"+
-  "&controls=0"+
-  "&rel=0"+
-  "&loop=1"+
-  "&playlist=7SsmyjVF1Oo";
-
+  intro.style.display='none';
+  audio.currentTime=0;
+  try{await audio.play();}catch(e){
+    // The tap is the required user gesture; if the browser still blocks local audio, retry once on the next tap anywhere.
+    const retry=()=>{audio.play().catch(()=>{});document.removeEventListener('click',retry);document.removeEventListener('touchstart',retry);};
+    document.addEventListener('click',retry,{once:true});
+    document.addEventListener('touchstart',retry,{once:true});
+  }
   let i=0;
-
+  show(0);
   timer=setInterval(()=>{
     i++;
-
-    if(i<files.length){
-      show(i);
-    }else{
+    if(i<files.length-1){show(i);}
+    else{
       clearInterval(timer);
-
-      // La pregunta y los botones aparecen juntos
       show(files.length-1);
-      proposal.style.display="flex";
+      proposal.style.display='flex';
+      moveNo();
+      noTimer=setInterval(moveNo,2800);
     }
-
-  },5200);
+  },14000);
 };
-
-document.getElementById("yes").onclick=()=>{
-
-  proposal.style.display="none";
-
-  for(let i=0;i<80;i++){
-
-    const h=document.createElement("span");
-
-    h.className="heart";
-    h.textContent="❤️";
-
-    h.style.left=Math.random()*100+"vw";
-    h.style.fontSize=(16+Math.random()*24)+"px";
-    h.style.animationDelay=Math.random()*1.7+"s";
-
-    hearts.appendChild(h);
+document.getElementById('yes').onclick=()=>{
+  proposal.style.display='none';
+  clearInterval(noTimer);
+  for(let i=0;i<100;i++){
+    const h=document.createElement('span');h.className='heart';h.textContent='❤️';
+    h.style.left=Math.random()*100+'vw';h.style.fontSize=(16+Math.random()*24)+'px';h.style.animationDelay=Math.random()*1.7+'s';hearts.appendChild(h);
   }
-
-  setTimeout(()=>{
-    final.style.display="flex";
-  },3000);
+  setTimeout(()=>{final.style.display='flex';},1200);
 };
-
-const no=document.getElementById("no");
-
-function escapeNo(){
-  no.style.position="fixed";
-  no.style.left=(8+Math.random()*72)+"vw";
-  no.style.top=(25+Math.random()*58)+"vh";
-}
-
-no.addEventListener("mouseenter",escapeNo);
-
-no.addEventListener("touchstart",e=>{
-  e.preventDefault();
-  escapeNo();
-});
-
+no.addEventListener('mouseenter',moveNo);
+no.addEventListener('touchstart',e=>{e.preventDefault();moveNo();});
 </script>
-
 </body>
 </html>
