@@ -1,65 +1,157 @@
+
 <!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Para Meibellyn ❤️</title>
 <style>
-#proposal{position:relative} #proposal .proposal-hit{position:absolute;inset:0;z-index:10;pointer-events:none} #proposal .choice{position:absolute;z-index:20;display:block;border:0;background:transparent;color:transparent;pointer-events:auto;cursor:pointer} #proposal #yes{left:9%;top:57%;width:46%;height:28%} #proposal #no{left:55%;top:59%;width:34%;heigh*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden;font-family:Arial,sans-serif}body{touch-action:manipulation}.screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:#000}.screen.active{display:flex}.screen img{width:100%;height:100%;object-fit:contain;display:block}.start-hit{position:absolute;width:min(62vw,430px);height:min(42vw,300px);left:50%;top:62%;transform:translate(-50%,-50%);border:0;background:transparent;cursor:pointer;border-radius:50%;-webkit-tap-highlight-color:transparent}.start-hit:focus-visible{outline:3px solid #fff}.proposal-hit{position:absolute;left:50%;bottom:13%;transform:translateX(-50%);width:min(70vw,520px);height:23%;display:flex;gap:12%;justify-content:center;align-items:center}.choice{border:0;min-width:34%;height:76%;border-radius:999px;background:transparent;color:transparent;font-size:1px;cursor:pointer;-webkit-tap-highlight-color:transparent}.choice:focus-visible{outline:3px solid #fff}.no-choice{position:relative}.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:20}.heart{position:absolute;font-size:clamp(22px,5vw,54px);animation:fall linear forwards;filter:drop-shadow(0 3px 5px rgba(0,0,0,.3))}.final-fade{animation:fadeIn 1s ease}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}@keyframes fall{0%{transform:translateY(-12vh) scale(.65) rotate(0deg);opacity:0}10%{opacity:1}100%{transform:translateY(112vh) scale(1.15) rotate(360deg);opacity:0}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden;font-family:Arial,sans-serif}
+.screen{display:none;position:relative;width:100%;height:100%;align-items:center;justify-content:center;background:#000}
+.screen.active{display:flex}
+.screen img{display:block;width:100%;height:100%;object-fit:contain}
+#intro{cursor:pointer}
+#start{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;z-index:5;cursor:pointer}
+#start .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+#proposal{position:relative}
+#proposal img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+#choices{position:absolute;inset:0;z-index:10}
+.choice{position:absolute;border:0;background:transparent;color:transparent;padding:0;margin:0;cursor:pointer}
+#yes{left:8%;top:57%;width:46%;height:29%}
+#no{left:55%;top:59%;width:36%;height:25%}
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
+.heart{position:absolute;top:-60px;font-size:28px;animation:fall 4s linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(360deg);opacity:0}}
+.final-fade{animation:fadein 1s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+audio{display:none}
 </style>
 </head>
 <body>
-<div id="intro" class="screen active" aria-label="Inicio de la sorpresa">
-  <img src="img/intro.png" alt="Girasol romántico para comenzar la sorpresa">
-  <button id="start" class="start-hit" aria-label="Toca el girasol para comenzar"><span class="sr">Toca el girasol para comenzar</span></button>
+
+<div id="intro" class="screen active">
+<img src="img/intro.png" alt="Girasol romántico para comenzar la sorpresa">
+<button id="start" aria-label="Toca el girasol para comenzar">
+<span class="sr">Toca el girasol para comenzar</span>
+</button>
 </div>
-<div id="sequence" class="screen"><img id="slide" src="" alt="Sorpresa romántica"></div>
+
+<div id="sequence" class="screen">
+<img id="slide" src="" alt="Sorpresa romántica">
+</div>
+
 <div id="proposal" class="screen" aria-label="Propuesta">
-  <img src="img/propuesta.png" alt="¿Quieres ser mi novia?">
-  <div id="choices" class="proposal-hit">
-    <button id="yes" class="choice" aria-label="Sí">Sí</button>
-    <button id="no" class="choice no-choice" aria-label="No">No</button>
-  </div>
+<img src="img/propuesta.png" alt="¿Quieres ser mi novia?">
+<div id="choices">
+<button id="yes" class="choice" aria-label="Sí">Sí</button>
+<button id="no" class="choice" aria-label="No">No</button>
 </div>
-<div id="final" class="screen"><img src="img/final.png" alt="Mensaje final para Meibellyn"></div>
-<div id="hearts" class="hearts" aria-hidden="true"></div>
+</div>
+
+<div id="final" class="screen">
+<img src="img/final.png" alt="Mensaje final para Meibellyn">
+</div>
+
+<div id="hearts" aria-hidden="true"></div>
+
 <audio id="music" src="audio/ya_borracho.mp3" preload="auto"></audio>
+
 <script>
 (function(){
-  const slides=['slide_01.jpg','slide_02.jpg','slide_03.jpg','slide_04.jpg','slide_05.jpg','slide_06.jpg'];
-  const intro=document.getElementById('intro'), sequence=document.getElementById('sequence'), proposal=document.getElementById('proposal'), finalScreen=document.getElementById('final');
-  const slide=document.getElementById('slide'), music=document.getElementById('music'), start=document.getElementById('start'), yes=document.getElementById('yes'), no=document.getElementById('no'), choices=document.getElementById('choices'), hearts=document.getElementById('hearts');
-  let timer=null,noTimer=null,index=0,started=false;
-  function show(el){[intro,sequence,proposal,finalScreen].forEach(x=>x.classList.remove('active'));el.classList.add('active')}
-  function playMusic(){music.currentTime=0; const p=music.play(); if(p&&p.catch)p.catch(()=>{});}
-  function showSlide(i){index=i;slide.src='img/'+slides[i];show(sequence)}
-  function moveNo(){
-    const maxX=Math.max(10,choices.clientWidth-no.offsetWidth-10), maxY=Math.max(10,choices.clientHeight-no.offsetHeight-10);
-    no.style.position='absolute'; no.style.left=Math.floor(Math.random()*maxX)+'px'; no.style.top=Math.floor(Math.random()*maxY)+'px';
-  }
-  function startSequence(){
-    if(started)return; started=true; playMusic(); showSlide(0); clearInterval(timer);
-    timer=setInterval(()=>{
-      if(index<slides.length-1){showSlide(index+1)}
-      else{clearInterval(timer); timer=null; show(proposal); moveNo(); clearInterval(noTimer); noTimer=setInterval(moveNo,2800)}
-    },14000);
-  }
-  start.addEventListener('click',startSequence,{once:true});
-  start.addEventListener('touchend',function(e){e.preventDefault();startSequence()},{passive:false});
-  function heartRain(){
-    hearts.innerHTML='';
-    for(let i=0;i<90;i++){
-      const h=document.createElement('div');h.className='heart';h.textContent=Math.random()<.5?'❤️':'💛';h.style.left=(Math.random()*100)+'%';h.style.top=(-Math.random()*25-5)+'vh';h.style.animationDuration=(2.4+Math.random()*2.6)+'s';h.style.animationDelay=(Math.random()*1.1)+'s';hearts.appendChild(h);
-    }
-  }
-  yes.addEventListener('click',()=>{
-    clearInterval(noTimer);noTimer=null;clearInterval(timer);timer=null;show(proposal);heartRain();
-    setTimeout(()=>{show(finalScreen);finalScreen.classList.add('final-fade')},3600);
-  });
-  function dodge(e){e.preventDefault();moveNo()}
-  no.addEventListener('pointerenter',moveNo);no.addEventListener('touchstart',dodge,{passive:false});no.addEventListener('click',dodge);no.addEventListener('focus',moveNo);
+const slides=[
+'slide_01.jpg',
+'slide_02.jpg',
+'slide_03.jpg',
+'slide_04.jpg',
+'slide_05.jpg',
+'slide_06.jpg'
+];
+
+const intro=document.getElementById('intro');
+const sequence=document.getElementById('sequence');
+const proposal=document.getElementById('proposal');
+const finalScreen=document.getElementById('final');
+const slide=document.getElementById('slide');
+const music=document.getElementById('music');
+const start=document.getElementById('start');
+const yes=document.getElementById('yes');
+const no=document.getElementById('no');
+const hearts=document.getElementById('hearts');
+
+let index=0;
+let timer=null;
+let started=false;
+
+function show(el){
+document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+el.classList.add('active');
+}
+
+function playMusic(){
+music.currentTime=0;
+const p=music.play();
+if(p&&p.catch)p.catch(()=>{});
+}
+
+function showSlide(i){
+index=i;
+slide.src='img/'+slides[i];
+show(sequence);
+}
+
+function startSequence(){
+if(started)return;
+started=true;
+playMusic();
+showSlide(0);
+
+timer=setInterval(function(){
+if(index<slides.length-1){
+showSlide(index+1);
+}else{
+clearInterval(timer);
+timer=null;
+show(proposal);
+}
+},14000);
+}
+
+start.addEventListener('click',startSequence);
+start.addEventListener('touchend',function(e){
+e.preventDefault();
+startSequence();
+},{passive:false});
+
+function heartRain(){
+hearts.innerHTML='';
+for(let i=0;i<70;i++){
+const h=document.createElement('div');
+h.className='heart';
+h.textContent=Math.random()<0.5?'❤️':'💛';
+h.style.left=(Math.random()*100)+'%';
+h.style.animationDelay=(Math.random()*1.5)+'s';
+h.style.fontSize=(20+Math.random()*25)+'px';
+hearts.appendChild(h);
+}
+}
+
+yes.addEventListener('click',function(e){
+e.preventDefault();
+if(timer){clearInterval(timer);timer=null;}
+show(proposal);
+heartRain();
+setTimeout(function(){
+show(finalScreen);
+finalScreen.classList.add('final-fade');
+},3600);
+});
+
+no.addEventListener('click',function(e){
+e.preventDefault();
+});
 })();
 </script>
+
 </body>
 </html>
